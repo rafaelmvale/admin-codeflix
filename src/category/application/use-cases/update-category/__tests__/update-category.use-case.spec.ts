@@ -2,7 +2,8 @@ import { NotFoundError } from "../../../../../shared/domain/errors/not-found.err
 import { InvalidUuidError, Uuid } from "../../../../../shared/domain/value-objects/uuid.vo";
 import { Category } from "../../../../domain/category.entity";
 import { CategoryInMemoryRepository } from "../../../../infra/db/in-memory/category-in-memory.repository";
-import { UpdateCategoryUseCase } from "./update-category.use-case"
+import { UpdateCategoryUseCase } from "../update-category.use-case";
+
 
 describe('UpdateCategoryUseCase Unit Tests', () => {
     let useCase: UpdateCategoryUseCase;

@@ -102,20 +102,17 @@ describe("Category Validator", () => {
 
     describe("create command", () => { 
         test("should an invalid category with name propoerty", () => {
-            expect(() => Category.create({ name: "" })).containsErrorMessages({
-                name: [
-                    'name should not be empty',
-                    'name must be a string',
-                    'name must be longer than or equal to 3 characters',
-                ],
-            });
+            const category = Category.create({name: 't'.repeat(256)})
+            
+            expect(category.notification.hasErrors()).toBe(true);
+            expect(category.notification).notificationContainsErrorMessages([
+                {
 
-            expect(() => Category.create({ name: '' })).containsErrorMessages({
-                name: [
-                    'name should not be empty',
-                ]
-            });
-
+                    name: ['name must be shorter than or equal to 255 characters']
+                },
+            ])
+            
+            
         })
     })
 })

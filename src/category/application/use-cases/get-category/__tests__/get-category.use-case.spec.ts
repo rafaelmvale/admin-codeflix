@@ -1,6 +1,6 @@
 import { inRange } from "lodash";
 import { CategoryInMemoryRepository } from "../../../../infra/db/in-memory/category-in-memory.repository";
-import { GetCategoryUseCase } from "../../get-category.use-case"
+import { GetCategoryUseCase } from "../get-category.use-case"
 import { InvalidUuidError, Uuid } from "../../../../../shared/domain/value-objects/uuid.vo";
 import { Category } from "../../../../domain/category.entity";
 import { NotFoundError } from "../../../../../shared/domain/errors/not-found.error";

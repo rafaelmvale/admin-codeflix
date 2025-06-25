@@ -9,29 +9,26 @@ import { SetupoSequelize } from "../../../../../shared/infra/testing/helpers";
 describe('CategoryModelMapper Integration Tests', () => {
    SetupoSequelize({models: [CategoryModel]});
 
-    // it('should throws error when category is invalid', async () => {
-    //     expect.assertions(2)
-    //       //@ts-expect-error - This is an invalid category
-    //     const model = CategoryModel.build({
-    //     category_id: '9366b7dc-2d71-4799-b91c-c64adb205104',
-    //     });
-
-    //     try{
-    //         CategoryModelMapper.toEntity(model)
-    //         fail('The category is valid, but it needs throws a LoadAggregateError');
-    //     }catch(e) {
-    //         expect(e).toBeInstanceOf(EntityValidationError)
-    //         expect((e as EntityValidationError).error).toMatchObject([
-    //             {
-    //                 name: [
-    //                     'name should not be empty',
-    //                     'name must be a string',
-    //                     'name must be shorter than or equal to 255 characters'
-    //                 ]
-    //             }
-    //         ])            
-    //     }
-    // })
+    it('should throws error when category is invalid', async () => {
+        expect.assertions(2);
+          //@ts-expect-error - This is an invalid category
+        const model = CategoryModel.build({
+        category_id: '9366b7dc-2d71-4799-b91c-c64adb205104',
+        name: 'a'.repeat(256),
+        });
+        try{
+            CategoryModelMapper.toEntity(model)
+            fail(
+                'The category is valid, but it needs throws a LoadAggregateError');
+        }catch(e) {
+            expect(e).toBeInstanceOf(EntityValidationError)
+            expect((e as EntityValidationError).error).toMatchObject([
+                {
+                    name: ['name must be shorter than or equal to 255 characters']
+                }
+            ])            
+        }
+    })
     it('should convert a category model to a category aggregate', async () => {
         const created_at = new Date();
         const model = CategoryModel.build({
